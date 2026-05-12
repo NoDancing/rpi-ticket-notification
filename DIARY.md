@@ -5,27 +5,34 @@
 ### Done
 
 - Setting up initial tooling and environments
-    - Initialized Cargo project
-    - Installed Cross for Raspberry Pi cross-compilation
-        (note that the target for the Zero 2 W is `aarch64-unknown-linux-gnu`)
-    - Installed OrbStack to run a container for testing (instead of Docker
-      Desktop)
-    - Added dockerignore
 
-    - Basic git setup
-        - Created repo
-        - Added Bill Pfeil as a contributor (`azrugger`)
-        - Added README & DIARY
-        - Added gitignore
+  - Initialized Cargo project
+
+  - Installed Cross for Raspberry Pi cross-compilation
+    (note that the target for the Zero 2 W is `aarch64-unknown-linux-gnu`)
+
+  - Installed OrbStack to run a container for testing (instead of Docker
+    Desktop)
+
+  - Added dockerignore
+
+  - Basic git setup
+
+    - Created repo
+    - Added Bill Pfeil as a contributor (`azrugger`)
+    - Added README & DIARY
+    - Added gitignore
 
 - Initial Hardware Setup
-    - Flashed Raspberry pi OS onto the flash drive.
-    - Confirmed Raspberry Pi connects to network, connected via SSH
-    - Compiled "Hello World" using cross + orbstack, succesfully ran on Pi
+
+  - Flashed Raspberry pi OS onto the flash drive.
+  - Confirmed Raspberry Pi connects to network, connected via SSH
+  - Compiled "Hello World" using cross + orbstack, succesfully ran on Pi
 
 - Initial Rust Development
-    - Compiled Hello World
-    - Compiled Hello Internet (successfully hits MLB Api)
+
+  - Compiled Hello World
+  - Compiled Hello Internet (successfully hits MLB Api)
 
 ### Next Steps:
 
