@@ -1,0 +1,10 @@
+# Build artifacts
+target
+
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+.env.local

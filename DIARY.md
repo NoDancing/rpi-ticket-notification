@@ -10,9 +10,11 @@
         (note that the target for the Zero 2 W is `armv7-unknown-linux-gnueabihf`)
     - Installed OrbStack to run a container for testing (instead of Docker
       Desktop)
+    - Added dockerignore
 
-- Basic git setup
-    - Created repo
-    - Added Bill Pfiel as a contributor (`azrugger`)
-    - Added README & DIARY
+    - Basic git setup
+        - Created repo
+        - Added Bill Pfiel as a contributor (`azrugger`)
+        - Added README & DIARY
+        - Added gitignore
 
