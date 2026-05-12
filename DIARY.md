@@ -22,3 +22,12 @@
     - Flashed Raspberry pi OS onto the flash drive.
     - Confirmed Raspberry Pi connects to network, connected via SSH
     - Compiled "Hello World" using cross + orbstack, succesfully ran on Pi
+
+- Initial Rust Development
+    - Compiled Hello World
+    - Compiled Hello Internet (successfully hits MLB Api)
+
+### Next Steps:
+
+- Learn how to parse JSON in Rust
+- Learn how to send data over TCP
