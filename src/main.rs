@@ -8,7 +8,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 fn hello_internet() -> Result<(), Box<dyn Error>> {
-    let resp = reqwest::blocking::get( "https://statsapi.mlb.com/api/v1/teams" )?.text()?;
+    let resp = reqwest::blocking::get("https://statsapi.mlb.com/api/v1/teams")?.text()?;
 
     println!("{}", resp);
 
