@@ -2,6 +2,8 @@
 
 ## Tuesday May 12
 
+### Done
+
 - Setting up initial tooling and environments
     - Initialized Cargo project
     - Installed Cross for Raspberry Pi cross-compilation
@@ -9,6 +11,8 @@
     - Installed OrbStack to run a container for testing (instead of Docker
       Desktop)
 
-
-
+- Basic git setup
+    - Created repo
+    - Added Bill Pfiel as a contributor (`azrugger`)
+    - Added README & DIARY
 
