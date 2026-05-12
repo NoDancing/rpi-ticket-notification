@@ -7,14 +7,16 @@
 - Setting up initial tooling and environments
     - Initialized Cargo project
     - Installed Cross for Raspberry Pi cross-compilation
-        (note that the target for the Zero 2 W is `armv7-unknown-linux-gnueabihf`)
+        (note that the target for the Zero 2 W is `aarch64-unknown-linux-gnu`)
     - Installed OrbStack to run a container for testing (instead of Docker
       Desktop)
     - Added dockerignore
 
     - Basic git setup
         - Created repo
-        - Added Bill Pfiel as a contributor (`azrugger`)
+        - Added Bill Pfeil as a contributor (`azrugger`)
         - Added README & DIARY
         - Added gitignore
 
+- Initial Hardware Setup
+    - Flashed Raspberry pi OS onto the flash drive.
