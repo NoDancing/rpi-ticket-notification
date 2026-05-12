@@ -20,3 +20,5 @@
 
 - Initial Hardware Setup
     - Flashed Raspberry pi OS onto the flash drive.
+    - Confirmed Raspberry Pi connects to network, connected via SSH
+    - Compiled "Hello World" using cross + orbstack, succesfully ran on Pi
