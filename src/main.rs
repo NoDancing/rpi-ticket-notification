@@ -41,7 +41,7 @@ fn get_mets_game() -> Result<Option<u64>, Box<dyn Error>> {
         for game in games_array {
             let away_id = game["teams"]["away"]["team"]["id"].as_u64().unwrap_or(0);
 
-            let home_id = game["teams"]["away"]["team"]["id"].as_u64().unwrap_or(0);
+            let home_id = game["teams"]["home"]["team"]["id"].as_u64().unwrap_or(0);
 
             // Is either team the Mets?
             if away_id == METS_ID || home_id == METS_ID {
@@ -53,4 +53,21 @@ fn get_mets_game() -> Result<Option<u64>, Box<dyn Error>> {
     }
 
     Ok(None)
+}
+
+fn build_schedule_url(date: &str) -> String {
+    todo!()
+}
+
+fn fetch_schedule(url: &str) -> Result<Value, Box<dyn Error>> {
+    todo!()
+}
+
+#[cfg(test)]
+
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
 }
