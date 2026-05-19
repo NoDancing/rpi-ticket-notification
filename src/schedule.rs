@@ -8,6 +8,8 @@
 // This module handles schedule API interaction only.
 // It should not contain live game polling logic.
 
+const SCHEDULE_BASE_URL: &str = "https://statsapi.mlb.com/api/v1/schedule";
+
 pub fn is_watched_team(team_id: u64, watched: &[u64]) -> bool {
     watched.contains(&team_id)
 }
@@ -29,4 +31,8 @@ mod tests {
 
         assert_eq!(is_watched_team(147, &watched), false);
     }
+}
+
+pub fn build_schedule_url(date: &str) -> String {
+    format!("{SCHEDULE_BASE_URL}?sportId=1&date={date}")
 }

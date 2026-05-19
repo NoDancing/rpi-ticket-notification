@@ -69,10 +69,6 @@ fn get_mets_game() -> Result<Option<u64>, Box<dyn Error>> {
     Ok(None)
 }
 
-fn build_schedule_url(date: &str) -> String {
-    todo!()
-}
-
 fn fetch_schedule(url: &str) -> Result<Value, Box<dyn Error>> {
     todo!()
 }
