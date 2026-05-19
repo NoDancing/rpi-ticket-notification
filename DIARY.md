@@ -5,13 +5,26 @@
 ### Done
 
 - Added serde and serde_json to cargo
-- wrote get_mets_game function to hit API and parse game number.
+- Wrote get_mets_game function to hit API and parse game number
+- Fixed home/away copy-paste bug in get_mets_game
+- Created src/models.rs with core domain types: WatchedTeam, Config, Team, GameInfo
+- Added toml crate; wrote config.toml with poll interval + two watched teams
+- Implemented load_config() in src/config.rs with doc comments and 3 unit tests
+  (valid load, missing file, invalid TOML)
+- Scaffolded src/schedule.rs (is_watched_team + tests) and src/live.rs
+- Completed roadmap Phase 0
 
 ### Plan
-- [ ] Define test data structure
+- [x] Define test data structure
 - [x] Parse JSON
+- [x] Load config from TOML
 
 ### Next Steps:
+- [ ] Move build_schedule_url + fetch_schedule out of main.rs into schedule.rs
+- [ ] Write extract_games_from_schedule() and discover_watched_games()
+- [ ] Capture a real MLB schedule JSON response into tests/fixtures/ for unit tests
+- [ ] Delete prototype get_mets_game() once discover_watched_games works
+- [ ] Catch up to plan.md (currently ~1 week behind — owe event pipeline + printing by May 25)
 
 ## Tuesday May 12
 
