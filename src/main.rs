@@ -2,9 +2,21 @@ use chrono::Local;
 use serde_json::Value;
 use std::error::Error;
 
+mod config;
 mod models;
 
 fn main() -> Result<(), Box<dyn Error>> {
+    let cfg = config::load_config("config.toml")?;
+    println!(
+        "Loaded {} team(s), polling every {}s",
+        cfg.teams.len(),
+        cfg.poll_interval_seconds
+    );
+
+    for team in &cfg.teams {
+        println!(" - {} (id {})", team.name, team.id);
+    }
+
     println!("Hello, world!");
 
     let mets_game_id = get_mets_game()?;
