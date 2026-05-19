@@ -1,5 +1,13 @@
 # Mini-Capstone Dev Diary / Notes
 
+## Tuesday May 19
+
+### Done
+
+- Added serde and serde_json to cargo
+
+### Next Steps:
+
 ## Tuesday May 12
 
 ### Done
@@ -36,5 +44,5 @@
 
 ### Next Steps:
 
-- Learn how to parse JSON in Rust
-- Learn how to send data over TCP
+- [ ] Learn how to parse JSON in Rust
+- [ ] Learn how to send data over TCP
