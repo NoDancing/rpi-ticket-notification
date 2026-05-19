@@ -1,0 +1,9 @@
+poll_interval_seconds = 10
+
+[[teams]]
+name = "New York Mets"
+id = 121
+
+[[teams]]
+name = "Atlanta Braves"
+id = 144
