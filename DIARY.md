@@ -5,6 +5,11 @@
 ### Done
 
 - Added serde and serde_json to cargo
+- wrote get_mets_game function to hit API and parse game number.
+
+### Plan
+- [ ] Define test data structure
+- [x] Parse JSON
 
 ### Next Steps:
 
@@ -44,5 +49,5 @@
 
 ### Next Steps:
 
-- [ ] Learn how to parse JSON in Rust
+- [x] Learn how to parse JSON in Rust
 - [ ] Learn how to send data over TCP
