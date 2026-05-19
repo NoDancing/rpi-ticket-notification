@@ -14,6 +14,10 @@ pub fn is_watched_team(team_id: u64, watched: &[u64]) -> bool {
     watched.contains(&team_id)
 }
 
+pub fn build_schedule_url(date: &str) -> String {
+    format!("{SCHEDULE_BASE_URL}?sportId=1&date={date}")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -31,8 +35,13 @@ mod tests {
 
         assert_eq!(is_watched_team(147, &watched), false);
     }
-}
 
-pub fn build_schedule_url(date: &str) -> String {
-    format!("{SCHEDULE_BASE_URL}?sportId=1&date={date}")
+    #[test]
+    fn builds_schedule_url_with_date() {
+        let url = build_schedule_url("2026-05-19");
+        assert_eq!(
+            url,
+            "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-19"
+        );
+    }
 }
