@@ -2,6 +2,8 @@ use chrono::Local;
 use serde_json::Value;
 use std::error::Error;
 
+mod models;
+
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Hello, world!");
 
