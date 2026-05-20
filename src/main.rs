@@ -8,66 +8,26 @@ mod schedule;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let cfg = config::load_config("config.toml")?;
-    println!(
-        "Loaded {} team(s), polling every {}s",
-        cfg.teams.len(),
-        cfg.poll_interval_seconds
-    );
 
-    for team in &cfg.teams {
-        println!(" - {} (id {})", team.name, team.id);
-    }
+    let today = chrono::Local::now().format("%Y-%m-%d").to_string();
+    let url = schedule::build_schedule_url(&today);
+    let json = schedule::fetch_schedule(&url)?;
+    let games = schedule::extract_games_from_schedule(&json);
 
-    println!("Hello, world!");
+    let watched_ids: Vec<u64> = cfg.teams.iter().map(|t| t.id).collect();
 
-    let mets_game_id = get_mets_game()?;
-
-    match mets_game_id {
-        Some(id) => {
-            println!("Mets game today! gamePk = {}", id);
-        }
-        None => {
-            println!("No Mets game today.");
+    for game in &games {
+        if schedule::is_watched_team(game.away.id, &watched_ids)
+            || schedule::is_watched_team(game.home.id, &watched_ids)
+        {
+            println!(
+                "Watched game: {} @ {} (gamePk {})",
+                game.away.name, game.home.name, game.game_pk
+            );
         }
     }
 
     Ok(())
-}
-fn get_mets_game() -> Result<Option<u64>, Box<dyn Error>> {
-    let today = Local::now().format("%Y-%m-%d");
-
-    let url = format!(
-        "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={}",
-        today
-    );
-
-    let resp = reqwest::blocking::get(url)?.text()?; //explain more
-
-    let json: Value = serde_json::from_str(&resp)?; //explain more
-    //
-
-    // Mets team ID
-    const METS_ID: u64 = 121;
-
-    // Navigate into dates[0].games
-    let games = &json["dates"][0]["games"];
-
-    if let Some(games_array) = games.as_array() {
-        for game in games_array {
-            let away_id = game["teams"]["away"]["team"]["id"].as_u64().unwrap_or(0);
-
-            let home_id = game["teams"]["home"]["team"]["id"].as_u64().unwrap_or(0);
-
-            // Is either team the Mets?
-            if away_id == METS_ID || home_id == METS_ID {
-                let game_pk = game["gamePk"].as_u64().unwrap_or(0);
-
-                return Ok(Some(game_pk));
-            }
-        }
-    }
-
-    Ok(None)
 }
 
 #[cfg(test)]
