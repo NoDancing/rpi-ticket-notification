@@ -69,10 +69,6 @@ fn get_mets_game() -> Result<Option<u64>, Box<dyn Error>> {
     Ok(None)
 }
 
-fn fetch_schedule(url: &str) -> Result<Value, Box<dyn Error>> {
-    todo!()
-}
-
 #[cfg(test)]
 
 mod tests {
