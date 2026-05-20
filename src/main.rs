@@ -4,6 +4,7 @@ use std::error::Error;
 
 mod config;
 mod models;
+mod schedule;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let cfg = config::load_config("config.toml")?;
