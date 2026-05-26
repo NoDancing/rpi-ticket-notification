@@ -3,6 +3,7 @@ use serde_json::Value;
 use std::error::Error;
 
 mod config;
+mod live;
 mod models;
 mod schedule;
 
