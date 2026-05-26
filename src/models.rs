@@ -43,3 +43,21 @@ pub struct GameInfo {
     pub home: Team,
     pub away: Team,
 }
+
+/// A single play pulled from the live feed
+///
+/// `id` is the MLB `atBatIndex` - sequential per game
+/// and used as the deduplication key by the polling loop
+#[derive(Debug, Clone)]
+pub struct PlayEvent {
+    pub id: u64,
+    pub inning: u64,
+    pub is_top_inning: bool,
+    pub batter: String,
+    pub pitcher: String,
+    pub description: String,
+    pub event_type: String,
+    pub is_scoring: bool,
+    pub away_score: u64,
+    pub home_score: u64,
+}
