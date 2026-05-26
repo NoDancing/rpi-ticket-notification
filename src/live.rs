@@ -10,6 +10,7 @@
 
 use crate::models::PlayEvent;
 use serde_json::Value;
+use std::collections::HashSet;
 use std::error::Error;
 
 const LIVE_BASE_URL: &str = "https://statsapi.mlb.com/api/v1.1/game";
@@ -84,9 +85,35 @@ pub fn extract_play_events(json: &Value) -> Vec<PlayEvent> {
     plays
 }
 
+pub fn filter_new_plays(plays: &[PlayEvent], seen_ids: &HashSet<u64>) -> Vec<PlayEvent> {
+    let mut new_plays = Vec::new();
+
+    for play in plays {
+        if !seen_ids.contains(&play.id) {
+            new_plays.push(play.clone());
+        }
+    }
+    new_plays
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn dummy_play(id: u64) -> PlayEvent {
+        PlayEvent {
+            id,
+            inning: 1,
+            is_top_inning: true,
+            batter: "Test Batter".to_string(),
+            pitcher: "Test Pitcher".to_string(),
+            description: "Test Play".to_string(),
+            event_type: "single".to_string(),
+            is_scoring: false,
+            away_score: 0,
+            home_score: 0,
+        }
+    }
 
     #[test]
     fn builds_live_feed_url() {
@@ -113,5 +140,17 @@ mod tests {
         assert_eq!(first.pitcher, "Nolan McLean");
         assert_eq!(first.event_type, "strikeout");
         assert!(!first.is_scoring);
+    }
+
+    #[test]
+    fn filters_new_plays() {
+        let seen_ids = HashSet::from([1, 2]);
+
+        let plays = vec![dummy_play(1), dummy_play(2), dummy_play(3)];
+
+        let new_plays = filter_new_plays(&plays, &seen_ids);
+
+        assert_eq!(new_plays.len(), 1);
+        assert_eq!(new_plays[0].id, 3);
     }
 }
