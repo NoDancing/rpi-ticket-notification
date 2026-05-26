@@ -41,7 +41,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let game = watched_games[0].clone();
 
-    println!("Polling {} @ {}", game.away.name, game.home.name);
+    _ = live::poll_game(&game, cfg.poll_interval_seconds)?;
 
     Ok(())
 }

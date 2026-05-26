@@ -12,6 +12,7 @@ use crate::models::{GameInfo, PlayEvent};
 use serde_json::Value;
 use std::collections::HashSet;
 use std::error::Error;
+use std::time::Duration;
 
 const LIVE_BASE_URL: &str = "https://statsapi.mlb.com/api/v1.1/game";
 
@@ -106,10 +107,41 @@ pub fn poll_game(
     game: &GameInfo,
     poll_interval_seconds: u64,
 ) -> Result<(), Box<dyn Error>> {
-    let seen_play_ids = HashSet::new();
+    println!("polling {} vs {}", game.away.name, game.home.name);
 
-    let live_url = live::build_live_feed_url(game_pk);
-    let live_feed_json = live::fetch_live_feed(&live_url);
+    let mut seen_play_ids = HashSet::new();
+
+    let live_url = build_live_feed_url(game.game_pk);
+
+    // Main polling loop
+    loop {
+        // Try to pull json data from the live feed
+        let json = match fetch_live_feed(&live_url) {
+            Ok(j) => j,
+            Err(e) => {
+                eprintln!("fetch failed: {e}");
+                std::thread::sleep(Duration::from_secs(poll_interval_seconds));
+                continue;
+            }
+        };
+
+        std::thread::sleep(Duration::from_secs(poll_interval_seconds));
+
+        let all_plays = extract_play_events(&json);
+        let new_plays = filter_new_plays(&all_plays, &seen_play_ids);
+
+        for new_play in &new_plays {
+            println!("{}", new_play.description);
+            seen_play_ids.insert(new_play.id);
+        }
+
+        if json["gameData"]["status"]["abstractGameState"].as_str()
+            == Some("Final")
+        {
+            println!("Game over.");
+            break Ok(());
+        }
+    }
 }
 
 #[cfg(test)]
