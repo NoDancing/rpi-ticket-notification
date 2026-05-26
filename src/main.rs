@@ -1,3 +1,4 @@
+use crate::models::GameInfo;
 use chrono::Local;
 use serde_json::Value;
 use std::error::Error;
@@ -19,24 +20,30 @@ fn main() -> Result<(), Box<dyn Error>> {
     let watched_ids: Vec<u64> = cfg.teams.iter().map(|t| t.id).collect();
 
     // Identify watched games
-    for game in &games {
-        if watched_ids.contains(game.away.id) || watched_ids.contains(game.home.id) {
-            println!(
-                "Watched game: {} @ {} (gamePk {})",
-                game.away.name, game.home.name, game.game_pk
-            );
-        }
+    let watched_games: Vec<&GameInfo> = games
+        .iter()
+        .filter(|game| {
+            watched_ids.contains(&game.away.id)
+                || watched_ids.contains(&game.home.id)
+        })
+        .collect();
+
+    // Report if no games
+    if watched_games.is_empty() {
+        println!("No games found!");
+        return Ok(());
     }
 
+    // Report if multiple games
+    if watched_games.len() > 1 {
+        println!("Multiple games found! Tracking the first.");
+    }
+
+    let game = watched_games[0].clone();
+
+    println!("Polling {} @ {}", game.away.name, game.home.name);
+
     Ok(())
-}
-
-fn poll_game(game_pk: u64) {
-    let live_url = live::build_live_feed_url(game_pk);
-    let live_feed_json = live::fetch_live_feed(&live_url);
-
-    if live_feed_json[
-    let play_events = live::extract_play_events(
 }
 
 #[cfg(test)]

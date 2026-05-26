@@ -49,16 +49,22 @@ pub fn extract_games_from_schedule(json: &Value) -> Vec<GameInfo> {
             let Some(game_pk) = game["gamePk"].as_u64() else {
                 continue;
             };
-            let Some(away_id) = game["teams"]["away"]["team"]["id"].as_u64() else {
+            let Some(away_id) = game["teams"]["away"]["team"]["id"].as_u64()
+            else {
                 continue;
             };
-            let Some(away_name) = game["teams"]["away"]["team"]["name"].as_str() else {
+            let Some(away_name) =
+                game["teams"]["away"]["team"]["name"].as_str()
+            else {
                 continue;
             };
-            let Some(home_id) = game["teams"]["home"]["team"]["id"].as_u64() else {
+            let Some(home_id) = game["teams"]["home"]["team"]["id"].as_u64()
+            else {
                 continue;
             };
-            let Some(home_name) = game["teams"]["home"]["team"]["name"].as_str() else {
+            let Some(home_name) =
+                game["teams"]["home"]["team"]["name"].as_str()
+            else {
                 continue;
             };
 

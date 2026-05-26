@@ -35,7 +35,11 @@ mod tests {
 
     fn write_temp_config(name: &str, contents: &str) -> std::path::PathBuf {
         let mut path = std::env::temp_dir();
-        path.push(format!("rpi_ticket_test_{}_{}.toml", std::process::id(), name));
+        path.push(format!(
+            "rpi_ticket_test_{}_{}.toml",
+            std::process::id(),
+            name
+        ));
         let mut file = fs::File::create(&path).unwrap();
         file.write_all(contents.as_bytes()).unwrap();
         path

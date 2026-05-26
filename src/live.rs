@@ -8,7 +8,7 @@
 //
 // This module should not contain notification delivery logic.
 
-use crate::models::PlayEvent;
+use crate::models::{GameInfo, PlayEvent};
 use serde_json::Value;
 use std::collections::HashSet;
 use std::error::Error;
@@ -30,7 +30,8 @@ pub fn fetch_live_feed(url: &str) -> Result<Value, Box<dyn Error>> {
 pub fn extract_play_events(json: &Value) -> Vec<PlayEvent> {
     let mut plays = Vec::new();
 
-    let Some(all_plays) = json["liveData"]["plays"]["allPlays"].as_array() else {
+    let Some(all_plays) = json["liveData"]["plays"]["allPlays"].as_array()
+    else {
         return plays;
     };
 
@@ -47,10 +48,12 @@ pub fn extract_play_events(json: &Value) -> Vec<PlayEvent> {
         let Some(is_top_inning) = play["about"]["isTopInning"].as_bool() else {
             continue;
         };
-        let Some(batter) = play["matchup"]["batter"]["fullName"].as_str() else {
+        let Some(batter) = play["matchup"]["batter"]["fullName"].as_str()
+        else {
             continue;
         };
-        let Some(pitcher) = play["matchup"]["pitcher"]["fullName"].as_str() else {
+        let Some(pitcher) = play["matchup"]["pitcher"]["fullName"].as_str()
+        else {
             continue;
         };
         let Some(description) = play["result"]["description"].as_str() else {
@@ -85,7 +88,10 @@ pub fn extract_play_events(json: &Value) -> Vec<PlayEvent> {
     plays
 }
 
-pub fn filter_new_plays(plays: &[PlayEvent], seen_ids: &HashSet<u64>) -> Vec<PlayEvent> {
+pub fn filter_new_plays(
+    plays: &[PlayEvent],
+    seen_ids: &HashSet<u64>,
+) -> Vec<PlayEvent> {
     let mut new_plays = Vec::new();
 
     for play in plays {
@@ -94,6 +100,16 @@ pub fn filter_new_plays(plays: &[PlayEvent], seen_ids: &HashSet<u64>) -> Vec<Pla
         }
     }
     new_plays
+}
+
+pub fn poll_game(
+    game: &GameInfo,
+    poll_interval_seconds: u64,
+) -> Result<(), Box<dyn Error>> {
+    let seen_play_ids = HashSet::new();
+
+    let live_url = live::build_live_feed_url(game_pk);
+    let live_feed_json = live::fetch_live_feed(&live_url);
 }
 
 #[cfg(test)]
